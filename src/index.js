@@ -1,6 +1,6 @@
 import './css/styles.css';
 const debounce = require('lodash.debounce');
-import {fetchCountries} from './fetchCountries';
+import {fetchCountries} from './fetch-countries';
 import countriesMarkupTpl from './templates/country-tpl.hbs';
 import countryMarkupDataTpl from './templates/country-data-tpl.hbs';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
