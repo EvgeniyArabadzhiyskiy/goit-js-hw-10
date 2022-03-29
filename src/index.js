@@ -19,15 +19,14 @@ refs.input.addEventListener('input', debounce(onFetcchCountryInfo,DEBOUNCE_DELAY
 function onFetcchCountryInfo(evt) {
     const searchQuery = evt.target.value.trim()
 
+    if (searchQuery === '') {
+        makesCountryMarkup('');
+        return
+    }
+
     fetchCountries(searchQuery).then(countries => {
 
         console.log(countries);
-
-        if (countries.message === 'Page Not Found' || countries.status === 404) {
-            Notify.failure('Oops, there is no country with that name');
-            makesCountryMarkup('');
-            return
-        }
       
         if (countries.length > 10) {
             Notify.info('Too many matches found. Please enter a more specific name.');
@@ -35,7 +34,7 @@ function onFetcchCountryInfo(evt) {
             
         }
 
-        if (countries.length < 10 && countries.length > 2) {
+        if (countries.length >= 2 && countries.length <= 10) {
             const countryDataFilter = countries.map(getCountriesInfo);
            
             makesCountryMarkup(countriesMarkupTpl(countryDataFilter));
@@ -47,12 +46,12 @@ function onFetcchCountryInfo(evt) {
             makesCountryMarkup(countryMarkupDataTpl(countryDataFilter));
             
         }
-        
-            
+              
     })
-        .catch(e => console.log("error"));
-
-    
+        .catch(e => {
+            makesCountryMarkup('');
+            console.log(e)
+        });   
 }
 
 
