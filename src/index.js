@@ -49,6 +49,7 @@ function onFetcchCountryInfo(evt) {
               
     })
         .catch(e => {
+            Notify.failure('Oops, there is no country with that name');
             makesCountryMarkup('');
             console.log(e)
         });   
